@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .card {
+            width: 50%;
+            height: 50%;
+            background-color: #000000;
+            border: 2px solid #d90808;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card::before,
+        .card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .card::before {
+            border: 2px solid #8400ff;
+            animation: border-animation 3s infinite linear;
+        }
+
+        .card::after {
+            border: 2px solid #00ff40;
+            animation: border-animation 5s infinite linear reverse;
+        }
+
+        @keyframes border-animation {
+            0% {
+                transform: rotate(0);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            color: #ff03a3;
+        }
+
+        .card-text {
+            font-size: 14px;
+            color: #f80000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <div class="card-content">
+            <h2 class="card-title">Animated Card</h2>
+            <p class="card-text">This is a sample animated card.</p>
+        </div>
+    </div>
+</body>
+
+</html>

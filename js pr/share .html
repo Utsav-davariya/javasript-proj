@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magical Share Button</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .magical-share-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .magical-share-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <button id="shareBtn" class="magical-share-btn">Share</button>
+    </div>
+
+    <script>function shareContent() {
+            const contentUrl = "#";
+
+            const socialNetworks = {
+                twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(contentUrl)}`,
+                facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(contentUrl)}`,
+                linkedin: `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(contentUrl)}`
+            };
+
+            // Add a tooltip to the button to provide feedback to the user
+            const shareBtn = document.getElementById('shareBtn');
+            shareBtn.innerText = "Sharing...";
+            shareBtn.setAttribute('disabled', true);
+
+            // Open new windows for sharing the content on each social network
+            const openedWindows = [];
+            for (const network in socialNetworks) {
+                if (socialNetworks.hasOwnProperty(network)) {
+                    const newWindow = window.open(socialNetworks[network], '_blank');
+                    if (newWindow) {
+                        openedWindows.push(newWindow);
+                    }
+                }
+            }
+
+            // Close the opened windows after a short delay and reset the button state
+            setTimeout(() => {
+                for (const windowObj of openedWindows) {
+                    windowObj.close();
+                }
+                shareBtn.innerText = "Share";
+                shareBtn.removeAttribute('disabled');
+            }, 2000);
+
+            // Copy the content URL to the clipboard (if supported by the browser)
+            const tempInput = document.createElement('input');
+            tempInput.value = contentUrl;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            let clipboardSuccess = false;
+            try {
+                clipboardSuccess = document.execCommand('copy');
+            } catch (err) {
+                console.error('Copy to clipboard failed:', err);
+            } finally {
+                document.body.removeChild(tempInput);
+            }
+
+            // Show appropriate feedback to the user
+            if (clipboardSuccess) {
+                alert('Link copied to clipboard! Paste it wherever you want.');
+            } else {
+                alert('Sharing completed, but unable to copy the link to clipboard. You can still manually copy it.');
+            }
+        }
+
+        const shareBtn = document.getElementById('shareBtn');
+        shareBtn.addEventListener('click', shareContent);
+    </script>
+</body>
+
+</html>

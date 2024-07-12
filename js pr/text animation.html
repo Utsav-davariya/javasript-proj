@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>text animation</title>
+    <style>
+        * {
+            background-color: black;
+       
+        }
+
+        div {
+           
+            margin-right: 93vw;
+        
+            height: 84px;
+            position: relative;
+            font-size: 5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            line-height: 80px;
+
+        }
+
+        .text {
+            color: transparent;
+            text-shadow: 10px 10px 10px red;
+            -webkit-text-stroke: 1px rgba(236, 0, 0, 0.6);
+        }
+
+        .hover-text {
+            position: absolute;
+            inset: 0;
+            width: 0%;
+            color: greenyellow;
+            overflow: hidden;
+            border-right: 6px solid #8bcb69;
+            transition: 0.5s ease-in-out;
+        }
+
+        div:hover .hover-text {
+            width: 100%;
+            filter: drop-shadow(0 0 40px #1eff00);
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <span class="text"> &nbsp;utsav&nbsp;</span>
+        <span class="hover-text"> &nbsp;utsav&nbsp;</span>
+    </div>
+</body>
+
+</html>

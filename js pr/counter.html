@@ -1,0 +1,142 @@
+!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter</title>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+        }
+
+        .container {
+            background-color: white;
+            color: black;
+            width: 400px;
+            min-height: 300px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.3),
+                inset -5px -5px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .container h1 {
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            color: slateblue;
+        }
+
+        .container .count {
+            font-size: 70px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .buttons .btn {
+            color: white;
+            background-color: slateblue;
+            border: 1px solid black;
+            padding: 10px 20px;
+            cursor: pointer;
+            box-shadow: 4px 4px 0 black;
+        }
+
+        .buttons .btn:active {
+            position: relative;
+            top: 4px;
+            left: 4px;
+            box-shadow: 7px 7px 10px rgb(0, 0, 0);
+        }
+
+        .buttons .reset {
+            background-color: black;
+            color: white;
+            padding: 3px 10px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .buttons .reset:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Counter</h1>
+        <p class="count">0</p>
+        <div class="buttons">
+            <button class="btn dec">Decrease</button>
+            <button class="reset">reset</button>
+            <button class="btn inc">Increase</button>
+        </div>
+    </div>
+
+    <script>
+        const decEl = document.querySelector(".dec");
+        const resetEl = document.querySelector(".reset");
+        const incEl = document.querySelector(".inc");
+        const countEl = document.querySelector(".count");
+
+        var count = 0;
+
+        decEl.addEventListener("click", decrease);
+        incEl.addEventListener("click", increase);
+        resetEl.addEventListener("click", reset);
+
+        function decrease() {
+            count--;
+            countEl.innerHTML = count;
+            if (count < 0) {
+                countEl.style.color = "red"
+            }
+            if (count == 0) {
+                countEl.style.color = "black"
+            }
+        }
+
+        function increase() {
+            count++;
+            countEl.innerHTML = count;
+            if (count > 0) {
+                countEl.style.color = "green"
+            }
+            if (count == 0) {
+                countEl.style.color = "black"
+            }
+        }
+
+        function reset() {
+            count = 0;
+            countEl.innerHTML = count;
+            countEl.style.color = "black"
+        }
+    </script>
+</body>
+
+</html>

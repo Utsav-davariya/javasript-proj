@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List App</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(125deg, red, orange);
+            flex-direction: column;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .title img {
+            margin-left: 10px;
+            width: 40px;
+            height: 40px;
+        }
+
+        .todo-list-bar {
+            width: 100%;
+            height: 35px;
+            background-color: gainsboro;
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        input {
+            flex: 1;
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            background-color: transparent;
+        }
+
+        .addBtn {
+            padding: 5px 20px;
+            font-size: 15px;
+            outline: none;
+            border: none;
+            border-radius: 20px;
+            background-color: #131111;
+            cursor: pointer;
+            color: white;
+        }
+
+        ul {
+            padding: 10px;
+        }
+
+        ul li {
+            list-style: none;
+            font-size: 15px;
+            padding: 5px 5px 5px 35px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        ul li::before {
+            content: "";
+            position: absolute;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background-image: url(images/unchecked.png);
+            background-size: cover;
+            background-position: center;
+            top: 50%;
+            left: 0px;
+            transform: translate(50%, -50%);
+        }
+
+        ul li.checked {
+            text-decoration: line-through;
+        }
+
+        ul li.checked::before {
+            background-image: url(images/checked.png);
+            background-size: cover;
+            background-position: center;
+            top: 50%;
+            left: 0px;
+            transform: translate(50%, -50%);
+        }
+
+        span {
+            position: absolute;
+            font-size: 16px;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            right: 0;
+            line-height: 21px;
+            transform: translate(-50%, -50%);
+            padding-left: 4.5px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        span:hover {
+            background: gainsboro;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="title">TO-DO List</div>
+        <div class="todo-list-bar">
+            <input type="text" id="task" placeholder="Enter the task..." autocomplete="off">
+            <button onclick="clicked()" class="addBtn">Add</button>
+        </div>
+        <ul class="lists">
+        </ul>
+    </div>
+
+    <script>
+        const taskEl = document.getElementById("task");
+        const listsEl = document.querySelector(".lists");
+
+
+        function clicked() {
+            if (taskEl.value === "") {
+                alert("Task should not be empty")
+            } else {
+                let li = document.createElement("li");
+                li.innerHTML = taskEl.value;
+                listsEl.appendChild(li);
+                taskEl.value = "";
+                let span = document.createElement("span");
+                span.innerHTML = "\u00d7";
+                li.appendChild(span);
+            }
+            saveData();
+        }
+
+        listsEl.addEventListener("click", (e) => {
+            if (e.target.tagName === "LI") {
+                e.target.classList.toggle("checked");
+            } else if (e.target.tagName === "SPAN") {
+                e.target.parentElement.remove();
+            }
+            saveData();
+        })
+
+        function saveData() {
+            localStorage.setItem("data", listsEl.innerHTML);
+        }
+
+        function getData() {
+            listsEl.innerHTML = localStorage.getItem("data");
+        }
+
+        getData();
+    </script>
+
+</body>
+
+</html>

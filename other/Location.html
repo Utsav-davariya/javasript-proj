@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Want's To Know Ypur Location</title>
+</head>
+<body>
+    <button id="curr-location">Clik Me</button>
+</body>
+<script>
+    const button =document.getElementById('curr-location');
+
+    function ha(position) {
+        console.log(position)
+    }
+
+    function na() {
+        console.log("there was some issue")
+    }
+    button.addEventListener('click',async ()=>{
+        navigator.geolocation.getCurrentPosition(ha,na)
+    })
+</script>
+</html>

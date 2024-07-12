@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <title>Expense Tracker</title>
+    <style>
+        body{
+            font-family: serif;
+        }
+        h2{
+            text-align: center;
+        }
+        .container{
+            min-width: 40px;
+            width: 35%;
+            
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px red;
+        }
+
+        input [type="text"]
+        input [type="number"]{
+            width: calc(10% - 10px);
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            outline: none;
+            
+        }
+        button{
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background: #1c5cff;
+            outline: none;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover{
+            background-color: #0048ff;
+        }
+        .expense{
+            padding: 10px;
+        }
+        .expense-item{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        .expense-item span{
+            flex-grow: 1;
+            gap: 10%;
+        }
+        .expense-total{
+            font-weight: bold;
+            margin-top: 10px;
+            margin-left: 35%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Expense Tracker</h2>
+        <input type="text" name="" id="itemName" class="" placeholder="
+        item Name...">
+        <input type="number" name="" id="itemAmount" placeholder="Item Amount...">
+        <button id="addItemBtn">Add Item</button>
+
+        <div class="expense" id="expense"></div>
+
+        <button onclick="clearAll()">Clear All</button>
+        <div class="expense-total" id="totalExpense"> Total Expense: 💰0.00</div>
+    </div>
+</body>
+<script>
+    let totalExpense = 0;
+    document.getElementById('addItemBtn').addEventListener('click',function () {
+        const itemNameInput = document.getElementById('itemName');
+        const itemAmountInput = document.getElementById('itemAmount');
+        const itemName = itemNameInput.value.trim();
+        const itemAmount = parseInt(itemAmountInput.value);
+
+        if (itemName == '' || isNaN(itemAmount)) {
+            alert('plese enter valid input....');
+            return;
+        }
+
+        const expenseDiv = document.getElementById('expense');
+        const expenseItemDiv = document.createElement('div');
+        expenseItemDiv.classList.add('expense-total');
+        expenseItemDiv.innerHTML=`
+        <span>${itemName}</span>
+        <span>${itemAmount.toFixed(2)} </span>
+        `;
+
+        expenseDiv.appendChild(expenseItemDiv);
+
+        totalExpense +=itemAmount;
+        updateTotalExpense();
+
+        itemNameInput.value ="";
+        itemAmountInput.value ="";
+    });
+
+
+    function updateTotalExpense(){
+        const totalExpenseDiv = document.getElementById('totalExpense');
+        totalExpenseDiv.textContent = `Total Expense 💰${totalExpense.toFixed(2)}`;
+    };
+
+    function clearAll(){
+        const expenseDiv = document.getElementById('expense');
+        expenseDiv.innerHTML = '';
+        totalExpense =0;
+        updateTotalExpense();
+    }
+</script>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TO DO LIST </title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    ul li {
+      list-style: none;
+      font-size: 17px;
+      padding: 12px 8px 12px 50px;
+      border-radius: 15px;
+      background-color: rgba(1, 186, 176, 0.863);
+      margin-bottom: 2px;
+      cursor: pointer;
+      position: relative;
+
+    }
+
+    ul li::before {
+      content: ' ';
+      position: absolute;
+      height: 28px;
+      width: 28px;
+      border-radius: 50%;
+      background-image: url(images/To-Do-Img/unchecked.png);
+      background-size: cover;
+      background-position: center;
+      top: 12px;
+      left: 8px;
+    }
+
+    ul li.checked {
+      color: #555;
+      text-decoration: line-through;
+    }
+
+    ul li.checked::before {
+      background-image: url(images/To-Do-Img/checked.png);
+    }
+
+    ul li span {
+      position: absolute;
+      right: 0;
+      top: 5px;
+      width: 40px;
+      height: 40px;
+      font-size: 22px;
+      color: white;
+      background: red;
+      line-height: 40px;
+      text-align: center;
+      margin-right: 5px;
+      border-radius: 50%;
+
+    }
+
+    ul li span:hover {
+      background: white;
+      color: red;
+    }
+  </style>
+
+</head>
+
+<body id="container" class="m-0 p-0 w-full h-screen ">
+  <div class="w-full min-h-full bg-teal-400 p-10">
+    <div id="todo-app" class="w-full max-w-lg bg-teal-200 m-auto p-10 rounded-lg">
+      <h2 class="ml-36 font-bold">TO DO LIST</h2>
+      <div id="row" class="flex items-center justify-center">
+        <input type="text" name="" placeholder="type here..." id="input-box"
+          class="pl-2 drop-shadow-2xl rounded-md border-none w-80 font-mono">
+        <button class="bg-green-400 m-2 rounded-t-3xl rounded-b-3xl pl-2 pr-2 drop-shadow-lg"
+          onclick="addTask()">Add</button>
+      </div>
+      <ul id="list-container">
+        <!-- <li class="checked">task 1</li>
+        <li>task 2</li>
+        <li>task 3</li> -->
+      </ul>
+    </div>
+  </div>
+
+</body>
+<script>
+  const inputBox = document.getElementById("input-box");
+  const listContainer = document.getElementById("list-container");
+
+  function addTask() {
+    if (inputBox.value === '') {
+      alert("you must write something!")
+    }
+    else {
+      let li = document.createElement('li');
+      li.innerHTML = inputBox.value;
+      listContainer.appendChild(li);
+      let span = document.createElement("span");
+
+      span.innerHTML = "\u00d7";
+      li.appendChild(span)
+
+    }
+    
+    inputBox.value = '';
+    saveData();
+  }
+
+  listContainer.addEventListener("click", function (e) {
+    if (e.target.tagName === "LI") {
+      e.target.classList.toggle("checked");
+      saveData();
+    }
+    else if (e.target.tagName === "SPAN") {
+      e.target.parentElement.remove();s
+      saveData();
+
+    }
+  }, false);
+
+  function saveData() {
+    localStorage.setItem("data",listContainer.innerHTML);
+  }
+
+  function showTask() {
+    listContainer.innerHTML = localStorage.getItem("data");
+  }
+  showTask();
+</script>
+
+</html>
